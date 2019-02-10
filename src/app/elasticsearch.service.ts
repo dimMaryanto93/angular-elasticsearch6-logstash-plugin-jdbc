@@ -29,7 +29,7 @@ export class ElasticsearchService {
     });
   }
 
-  autocomplateFields(_searchCriteria?: any): any {
+  searchFields(_searchCriteria?: any): any {
     return this.client.search({
       index: 'test_script',
       body: {
@@ -38,8 +38,14 @@ export class ElasticsearchService {
             'type': 'best_fields',
             'query': `${_searchCriteria}`,
             'analyzer': 'standard',
+            'fields': [
+              'registration_nomor',
+              'requirement_name',
+              'test_filename',
+              'design_step_name'
+            ],
             'operator': 'and',
-            'auto_generate_synonyms_phrase_query': 'true'
+            'auto_generate_synonyms_phrase_query': 'false'
           }
         }
       },

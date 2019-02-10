@@ -28,8 +28,10 @@
     "elasticsearch": "^15.4.1",
     "elasticsearch-browser": "^15.4.1",
     "jquery": "^3.3.1",
+    "ng2-input-autocomplete": "^0.2.1",
     "ngx-bootstrap": "^3.2.0",
     "rxjs": "~6.2.0",
+    "rxjs-compat": "^6.4.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

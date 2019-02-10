@@ -7,9 +7,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Installing dependency
 
 ```npm 
-npm install --save elasticsearch elasticsearch-browser \
+npm install --save elasticsearch elasticsearch-browser rxjs-compat \
 jquery datatables.net  datatables.net-dt  angular-datatables \
-bootstrap ngx-bootstrap
+bootstrap ngx-bootstrap \
+ng2-input-autocomplete
 ```
 
 Installing dev-dependency
