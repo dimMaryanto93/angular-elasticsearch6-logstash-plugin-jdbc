@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  elasticsearchApi: 'http://elasticsearch:9200'
 };
