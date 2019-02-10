@@ -9,7 +9,7 @@ Installing dependency
 ```npm 
 npm install --save elasticsearch elasticsearch-browser rxjs-compat \
 jquery datatables.net  datatables.net-dt  angular-datatables \
-bootstrap ngx-bootstrap \
+bootstrap ngx-bootstrap font-awesome \
 ng2-input-autocomplete
 ```
 

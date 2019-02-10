@@ -7,3 +7,21 @@
        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
 </div>
 
+<div class="container">
+  <div class="card-body">
+    <form [formGroup]="searchBox" (submit)="refresh($event)">
+      <div class="form-group">
+        <input class="form-control" type="text" name="filename" id="filename" formControlName="search">
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-search"></i> Cari
+        </button>
+      </div>
+    </form>
+    <hr/>
+    <table datatable width="100%" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger"
+           class="row-border hover table table-bordered table-striped table-sm">
+    </table>
+  </div>
+</div>

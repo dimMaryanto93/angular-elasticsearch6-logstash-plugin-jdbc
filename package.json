@@ -27,6 +27,7 @@
     "datatables.net-dt": "^1.10.19",
     "elasticsearch": "^15.4.1",
     "elasticsearch-browser": "^15.4.1",
+    "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "ng2-input-autocomplete": "^0.2.1",
     "ngx-bootstrap": "^3.2.0",
