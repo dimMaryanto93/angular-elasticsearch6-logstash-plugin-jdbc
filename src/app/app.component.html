@@ -11,7 +11,12 @@
   <div class="card-body">
     <form [formGroup]="searchBox" (submit)="refresh($event)">
       <div class="form-group">
-        <input class="form-control" type="text" name="filename" id="filename" formControlName="search">
+        <input autocomplete
+               [items]="searchItems"
+               [config]="searchConfig"
+               (inputChangedEvent)="onChangeTextFieldSearch($event)"
+               (selectEvent)="onSelect($event)"
+               class="form-control" type="text" name="filename" id="filename" formControlName="search">
       </div>
       <div class="form-group">
         <button type="submit" class="btn btn-primary">
