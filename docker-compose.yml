@@ -1,0 +1,78 @@
+version: '3.6'
+services:
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=example
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=admin
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - angular_logstash_network
+  flyway:
+    image: boxfuse/flyway
+    command: -url=jdbc:mysql://mysql:3306/example?useSSL=false -schemas=example -user=admin -password=admin -driver=com.mysql.jdbc.Driver -connectRetries=60  -cleanOnValidationError=true -baselineOnMigrate=true migrate
+    environment:
+      - FLYWAY_EDITION=community
+    volumes:
+      - ./src/sql/:/flyway/sql/
+    networks:
+      - angular_logstash_network
+    depends_on:
+      - mysql
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.6.0
+    ports:
+      - 9300:9300
+      - 9200:9200
+    environment:
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - http.cors.allow-methods=OPTIONS,HEAD,GET,POST,PUT,DELETE
+      - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+      - transport.host=127.0.0.1
+      - cluster.name=docker-cluster
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    networks:
+      - angular_logstash_network
+  kibana:
+    image: docker.elastic.co/kibana/kibana:6.6.0
+    ports:
+      - 5601:5601
+    networks:
+      - angular_logstash_network
+    depends_on:
+      - elasticsearch
+  logstash:
+    image: dimmaryanto93/logstash-input-jdbc-mysql:6.6.0
+    environment:
+      - LOGSTASH_JDBC_URL=jdbc:mysql://mysql:3306/example?useSSL=false
+      - LOGSTASH_JDBC_DRIVER=com.mysql.jdbc.Driver
+      - LOGSTASH_JDBC_DRIVER_JAR_LOCATION=mysql-connector-java.jar
+      - LOGSTASH_JDBC_USERNAME=admin
+      - LOGSTASH_JDBC_PASSWORD=admin
+      - LOGSTASH_ELASTICSEARCH_HOST=http://elasticsearch:9200
+    ports:
+      - 9600:9600
+      - 5044:5044
+    networks:
+      - angular_logstash_network
+    volumes:
+      - ./logstash-jdbc-input-plugin.conf:/usr/share/logstash/pipeline/logstash.conf
+    depends_on:
+      - elasticsearch
+      - kibana
+      - flyway
+      - mysql
+volumes:
+  elasticsearch_data:
+  mysql_data:
+networks:
+  angular_logstash_network:
